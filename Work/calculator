@@ -1,2 +1,0 @@
-profit = (711.25 - 235.14) *75
-print ("total profit = " , profit)
