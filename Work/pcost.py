@@ -1,10 +1,16 @@
 # pcost.py
 #
-# Exercise 1.30
+# Exercise 1.31
 
 #Total_amount = 0
 
 def portfolio_cost(filename):
+
+   try:
+      f = open(filename)
+   except FileNotFoundError:
+      print(f'{filename} is not a valid file')
+      return
 
    Total_amount = 0
 
