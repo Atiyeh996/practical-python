@@ -3,6 +3,7 @@
 # Exercise 1.31
 
 #Total_amount = 0
+import csv
 
 def portfolio_cost(filename):
 
