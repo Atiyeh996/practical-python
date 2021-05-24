@@ -1,9 +1,10 @@
 # pcost.py
 #
-# Exercise 1.31
+# Exercise 1.32
 
 #Total_amount = 0
 import csv
+import sys
 
 def portfolio_cost(filename):
 
