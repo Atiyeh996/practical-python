@@ -1,35 +1,22 @@
 # report.py
 #
-# Exercise 2.5
+# Exercise 2.6
 
-import csv
+import csv 
 
-def read_portfolio(filename):
+def read_prices(filename):
+    
+    dic = {}
+    with open(filename) as f:
+        rows = csv.reader(f)
+        for row in rows:
+            try:
+                dic[row[0]] = float(row[1])
+            except IndexError:
+                pass
+    
+    print(dic)
+    return dic
 
 
-   portfolio = {}
-   aa =[]
-   #f = open(filename, 'rt')
-   with open(filename, 'rt') as f:
-      rows = csv.reader(f)
-      headers = next(rows)
-      
-   
-      for line in f:
-
-         row = line.split(',')
-         
-         #portfolio = ("name": row[0], "shares":int(row[1]), "price":float(row[2]))
-         portfolio = {
-            'name'   : row[0],
-            'shares' : int(row[1]),
-            'price'   : float(row[2])
-        }
-         aa.append(portfolio)
-      #print(a, end='')
-   print(aa)
-   return aa 
-
-   #f.close()  
-read_portfolio('Data/portfolio.csv')
-
+read_prices('Data/prices.csv')
