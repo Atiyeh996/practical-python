@@ -1,6 +1,6 @@
 # report.py
 #
-# Exercise 2.4
+# Exercise 2.5
 
 import csv
 
@@ -8,7 +8,7 @@ def read_portfolio(filename):
 
 
    portfolio = {}
-   a =[]
+   aa =[]
    #f = open(filename, 'rt')
    with open(filename, 'rt') as f:
       rows = csv.reader(f)
@@ -25,10 +25,10 @@ def read_portfolio(filename):
             'shares' : int(row[1]),
             'price'   : float(row[2])
         }
-         a.append(portfolio)
+         aa.append(portfolio)
       #print(a, end='')
-   print(a)
-   return a 
+   print(aa)
+   return aa 
 
    #f.close()  
 read_portfolio('Data/portfolio.csv')
