@@ -1,6 +1,5 @@
 # report.py
-#
-# Exercise 2.6
+
 
 import csv 
 
@@ -49,11 +48,23 @@ for s in a:
     Cost += s["shares"]*s["price"]
 
 print('cost', Cost)
-
+'''
 Value = 0.0
 for s in a:
     Value += s["shares"]*dict[s["name"]]
 
 print(Value)
 print(Value - Cost)
+'''
+def make_report(a, dict):
+    list=[]
+
+    for portfolio in a:
+        price = dict[portfolio['name']]
+        change = price - portfolio['price']
+    
+    
+    return list
+
+report = make_report(a,dict)
 
