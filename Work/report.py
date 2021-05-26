@@ -4,7 +4,7 @@
 
 import csv 
 
-dic = {}
+
 a=[]
 def read_portfolio(filename):
 
@@ -28,16 +28,14 @@ a = read_portfolio('Data/portfolio.csv')
 
 def read_prices(filename):
     
-    dic = {}
+    dict = {}
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         headers = next(rows)
         for row in rows:
-            try:
-                
-                
-                dict= print(row)
-                #dic[row[0]] = float(row[1])
+            try: 
+                dict = print(row)
+                #dict[row[0]] = float(row[1])
             except IndexError:
                 pass
     
@@ -52,14 +50,4 @@ for d in a :
     cost += d["shares"]*d["price"]
 
 print('Total cost', cost)
-
-value = 0
-for d in dict :
-    value += d['shares']*dict[d['name']]
-    #value += d['shares']
-    #value += int(s[1])*dict[s[0]]
-
-
-print("total_value" , value)
-print('Gain=', value - cost )
 
