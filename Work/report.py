@@ -4,11 +4,13 @@
 
 import csv 
 
+
+a=[]
+dict = {}
 def read_portfolio(filename):
-    a=[]
+
+    
     with open(filename, 'rt') as f:
-        #portfolio={}
-        #a=[]
         rows = csv.reader(f)
         headers = next(rows)
         for row in rows:
@@ -19,14 +21,13 @@ def read_portfolio(filename):
             }
             a.append(portfolio)
 
-        #print(a,"\n")
+        
     return a
-a = read_portfolio('Data/portfolio.csv')
 
 
 def read_prices(filename):
     
-    dict = {}
+    
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         headers = next(rows)
@@ -37,44 +38,41 @@ def read_prices(filename):
             except IndexError:
                 pass
     
-    #print(dict,"\n")
+    
     return dict
 
 
-dict = read_prices('Data/prices.csv')
-
-
-Cost = 0
-for s in a:
-    Cost += s["shares"]*s["price"]
-
-print('cost', Cost)
-'''
-Value = 0.0
-for s in a:
-    Value += s["shares"]*dict[s["name"]]
-
-print(Value)
-print(Value - Cost)
-'''
-def make_report(a, dict):
+def make_report(filename):
     list=[]
 
-    for portfolio in a:
+    for portfolio in a :
+        current_price = a[portfolio['name']]
+        change = current_price - portfolio['price']
+
         price = dict[portfolio['name']]
         change = price - portfolio['price']
-
-    
-    
+        summary = (portfolio['name'], portfolio['shares'], current_price, change)
+        list.append(summary)
     return list
 
-report = make_report(a,dict)
 
 
-headers = ('Name', 'Shares', 'Price', 'Change')
-print('%10s %10s %10s %10s' % headers)
-print(('-' * 10 + ' ') * len(headers))
-for row in report:
-    print('%10s %10d %10.2f %10.2f' % row)
-     
+def print_report(x,y):
+    headers = ('Name', 'Shares', 'Price', 'Change')
+    print('%10s %10s %10s %10s' % headers)
+    print(('-' * 10 + ' ') * len(headers))
+    for row in print_report:
+        print('%10s %10d %10.2f %10.2f' % row)
+
+
+def portfolio_report(portfolio_filename, prices_filename):
+
+
+    a = read_portfolio('Data/portfolio.csv')
+    dict = read_prices('Data/prices.csv')
+    report = make_report(a,dict)
+    print_report(report)
+
+portfolio_report(portfolio_filename ='Data/portfolio.csv',prices_filename = 'Data/prices.csv')
+
 
