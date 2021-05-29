@@ -1,27 +1,38 @@
 import csv
 
-types = []
-def parse_csv(filename, select=None):
+
+def parse_csv(filename, select=None, types= None, delimiter=' '):
     
     with open(filename) as f:
-        rows = csv.reader(f)
+        rows = csv.reader(f, delimiter=delimiter)
         headers = next(rows)
-        indices = []
-        record =()
+        
+
+        if select:
+            indices = [ headers.index(colname) for colname in select ]
+            headers = select 
+        else:
+            indices = []
+
+
+        
         records = []
         for row in rows:
             if not row:    
                 continue
             
-            if indices:
-                row = ( row[index] for index in indices )
+            if select:
+                row = [row[index] for index in indices ]
 
             if types:
                 row = [func(val) for func, val in zip(types, row) ]
             
-            record = ()
+            if headers:
+                record = dict(zip(headers, row))
+            else:
+                record = tuple(row)
             records.append(record)
+            
 
     return records
         
-#parse = parse_csv('Data/portfolio.csv', select=['name', 'shares'], types = [str,int])
