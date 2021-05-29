@@ -29,7 +29,7 @@ def read_prices(filename):
 
     return prices
 
-def make_report_data(portfolio,prices):
+def make_report(portfolio,prices):
     
     rows = []
     for stock in portfolio:
@@ -47,3 +47,14 @@ def print_report(reportdata):
     print(('-'*10 + ' ')*len(headers))
     for row in reportdata:
         print('%10s %10d %10.2f %10.2f' % row)
+
+def portfolio_report(portfolio_filename, prices_filename):
+    portfolio = read_portfolio('Data/portfolio.csv')
+    prices = read_prices('Data/prices.csv')
+
+    
+    report = make_report(portfolio,prices)
+
+    
+
+portfolio_report('Data/portfolio.csv','Data/prices.csv')
