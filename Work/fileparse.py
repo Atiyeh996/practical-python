@@ -15,24 +15,27 @@ def parse_csv(filename, select=None, types= None, delimiter=' '):
             indices = []
 
 
-        
-        records = []
-        for row in rows:
-            if not row:    
-                continue
+        try: 
+            records = []
+            for row in rows:
+                if not row:    
+                    continue
             
-            if select:
-                row = [row[index] for index in indices ]
+                if select:
+                    row = [row[index] for index in indices ]
 
-            if types:
-                row = [func(val) for func, val in zip(types, row) ]
+                if types:
+                    row = [func(val) for func, val in zip(types, row) ]
             
-            if headers:
-                record = dict(zip(headers, row))
-            else:
-                record = tuple(row)
-            records.append(record)
+                if headers:
+                    record = dict(zip(headers, row))
+                else:
+                    record = tuple(row)
+                records.append(record)
             
+        except TypeError as e:
+            raise RuntimeError("select argument requires column headers")
 
     return records
         
+file = parse_csv('Data/prices.csv', select=['name','price'], has_headers=False)
