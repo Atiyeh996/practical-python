@@ -1,4 +1,6 @@
+# report.py
 import csv
+
 def read_portfolio(filename):
     
     portfolio = []
@@ -14,6 +16,7 @@ def read_portfolio(filename):
                 'price' : float(record['price'])
             }
             portfolio.append(stock)
+
     return portfolio
 
 def read_prices(filename):
@@ -29,7 +32,7 @@ def read_prices(filename):
 
     return prices
 
-def make_report(portfolio,prices):
+def make_report_data(portfolio,prices):
     
     rows = []
     for stock in portfolio:
@@ -39,7 +42,6 @@ def make_report(portfolio,prices):
         rows.append(summary)
     return rows
 
-
 def print_report(reportdata):
     
     headers = ('Name','Shares','Price','Change')
@@ -48,13 +50,16 @@ def print_report(reportdata):
     for row in reportdata:
         print('%10s %10d %10.2f %10.2f' % row)
 
-def portfolio_report(portfolio_filename, prices_filename):
-    portfolio = read_portfolio('Data/portfolio.csv')
-    prices = read_prices('Data/prices.csv')
+def portfolio_report(portfoliofile,pricefile):        
+   
+
+    portfolio = read_portfolio(portfoliofile)
+    prices = read_prices(pricefile)
 
     
-    report = make_report(portfolio,prices)
+    report = make_report_data(portfolio,prices)
 
     
+    print_report(report)
 
 portfolio_report('Data/portfolio.csv','Data/prices.csv')
