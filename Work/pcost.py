@@ -4,7 +4,7 @@
 
 #Total_amount = 0
 import csv
-import sys
+from report import read_portfolio()
 
 def portfolio_cost(filename):
    line_num = 0
@@ -27,6 +27,7 @@ def portfolio_cost(filename):
             print('Missing field encountered, skipping the corresponding line')
 
    return all_shares_price
+   return 
 
 if len(sys.argv) ==2:
    filename = sys.argv[1]
