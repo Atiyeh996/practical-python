@@ -1,8 +1,8 @@
 import csv
 
-def parse_csv(filename, select = None, types=None, has_headers=True):
+def parse_csv(filename, select = None, types=None, has_headers=True, delimiter=','):
     with open (filename , "rt") as f:
-        rows = csv.reader(f)
+        rows = csv.reader(f,delimiter=delimiter)
 
         headers = next(rows) if has_headers else []
         
@@ -22,9 +22,11 @@ def parse_csv(filename, select = None, types=None, has_headers=True):
             
             if select:
                 row = [ row[index] for index in indices ]
-
-            record = tuple(row)
-            records.append(record)
+            if headers:
+                record = dict(zip(headers, row))
+            else:
+                record = tuple(row)
+                records.append(record)
 
     return records
 
