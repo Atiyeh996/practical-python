@@ -20,7 +20,7 @@ def read_portfolio(filename):
         #    portfolio.append(stock)
 
    # return portfolio
-    return fileparse.parse_csv(filename, select=['name','shares','price'], types=[str,int,float])
+    return fileparse.parse_csv(filename, select=['name','shares','price'], types=[str,int,float], has_header=True)
 
 
 def read_prices(filename):
