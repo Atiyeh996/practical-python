@@ -1,6 +1,6 @@
 import csv
 
-def parse_csv(filename, select = None):
+def parse_csv(filename, select = None, types=None):
     with open (filename , "rt") as f:
         rows = csv.reader(f)
 
@@ -12,7 +12,11 @@ def parse_csv(filename, select = None):
             indices = []
 
         records=[]
+
+        
         for row in rows:
+            if types:
+                row = [func(val) for func, val in zip(types, row) ]
             if not row:
                 continue
             if indices:
