@@ -1,6 +1,6 @@
 import csv
 
-def parse_csv(filename, select = None, has_headers=False, delimiter=','):
+def parse_csv(filename, select = None,types=None, has_headers=False, delimiter=','):
     with open (filename , "rt") as f:
         rows = csv.reader(f,delimiter=delimiter)
 
@@ -27,10 +27,12 @@ def parse_csv(filename, select = None, has_headers=False, delimiter=','):
                     record = tuple(row)
     
                     records.append(record)
+                if types:
+                    row = [func(val) for func,val in zip(types,row)]
 
-        except RuntimeError as e:
-            print("select argument requires column headers")
-            raise 
+        except ValueError as e:
+            print(f"{row}:cant be converted, since {e} " )
+           
     return records
 
-parse_csv('Data/prices.csv', select=['name','price'])
+portfolio = parse_csv('Data/missing.csv', types=[str, int, float])
