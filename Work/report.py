@@ -1,26 +1,30 @@
 # report.py
-import csv
+#import csv
+
+import fileparse
 
 def read_portfolio(filename):
     
-    portfolio = []
-    with open(filename) as f:
-        rows = csv.reader(f)
-        headers = next(rows)
+    #portfolio = []
+    #with open(filename) as f:
+     #   rows = csv.reader(f)
+      #  headers = next(rows)
+      #  for row in rows:
+       #     record = dict(zip(headers, row))
+        #    stock = {
+        #        'name' : record['name'],
+        #        'shares' : int(record['shares']),
+        #        'price' : float(record['price'])
+        #    }
+        
+        #    portfolio.append(stock)
 
-        for row in rows:
-            record = dict(zip(headers, row))
-            stock = {
-                'name' : record['name'],
-                'shares' : int(record['shares']),
-                'price' : float(record['price'])
-            }
-            portfolio.append(stock)
+   # return portfolio
+    return fileparse.parse_csv(filename, select=['name','shares','price'], types=[str,int,float])
 
-    return portfolio
 
 def read_prices(filename):
-    
+    '''
     prices = {}
     with open(filename) as f:
         rows = csv.reader(f)
@@ -31,6 +35,8 @@ def read_prices(filename):
                 pass
 
     return prices
+'''
+    return dict(fileparse.parse_csv(filename,types=[str,float], has_headers=False))
 
 def make_report_data(portfolio,prices):
     
