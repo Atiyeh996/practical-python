@@ -2,14 +2,13 @@
 import csv
 
 def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=',', silence_errors=False):
-   
+  
     if select and not has_headers:
         raise RuntimeError('select requires column headers')
 
     with open(filename) as f:
         rows = csv.reader(f, delimiter=delimiter)
 
-        
         headers = next(rows) if has_headers else []
 
         if select:
@@ -18,7 +17,7 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
 
         records = []
         for rowno, row in enumerate(rows, 1):
-            if not row:    
+            if not row:     
                 continue
 
             if select:
