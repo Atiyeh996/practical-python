@@ -1,17 +1,24 @@
 import csv
 
-def parse_csv(filename):
+def parse_csv(filename, select = None):
     with open (filename , "rt") as f:
         rows = csv.reader(f)
 
-        headers = next(f)
+        headers = next(rows)
+        if select:
+            indices = [headers.index(colname) for colname in select]
+            headers = select
+        else:
+            indices = []
+
         records=[]
         for row in rows:
             if not row:
                 continue
+            if indices:
+                row = [ row[index] for index in indices ]
+
             record = dict(zip(headers,row))
             records.append(record)
     return records
 
-records = parse_csv("Data/portfolio.csv")
-print(records)
