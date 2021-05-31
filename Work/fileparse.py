@@ -1,6 +1,6 @@
 import csv
 
-def parse_csv(filename, select = None, types=None, has_headers=True, delimiter=','):
+def parse_csv(filename, select = None, has_headers=False, delimiter=','):
     with open (filename , "rt") as f:
         rows = csv.reader(f,delimiter=delimiter)
 
@@ -12,21 +12,25 @@ def parse_csv(filename, select = None, types=None, has_headers=True, delimiter='
     
     
         records=[]
-
+        try:
         
-        for row in rows:
-            if types:
-                row = [func(val) for func, val in zip(types, row) ]
-            if not row:
-                continue
+            for row in rows:
+                
+                if not row:
+                    continue
             
-            if select:
-                row = [ row[index] for index in indices ]
-            if headers:
-                record = dict(zip(headers, row))
-            else:
-                record = tuple(row)
-                records.append(record)
+                if select:
+                    row = [ row[index] for index in indices ]
+                if headers:
+                    record = dict(zip(headers, row))
+                else:
+                    record = tuple(row)
+    
+                    records.append(record)
 
+        except RuntimeError as e:
+            print("select argument requires column headers")
+            raise 
     return records
 
+parse_csv('Data/prices.csv', select=['name','price'])
