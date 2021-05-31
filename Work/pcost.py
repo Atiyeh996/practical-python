@@ -1,38 +1,18 @@
 # pcost.py
-#
-# Exercise 1.32
 
-#Total_amount = 0
-import csv
-from report import read_portfolio()
+import report
 
 def portfolio_cost(filename):
-   line_num = 0
-   all_shares_price = 0
+    
+    portfolio = report.read_portfolio(filename)
+    return sum([s['shares'] * s['price'] for s in portfolio])
 
-   with open(filename, 'rt') as f:
-      lines = csv.reader(f)
+def main(args):
+    if len(args) != 2:
+        raise SystemExit('Usage: %s portfoliofile' % args[0])
+    filename = args[1]
+    print('Total cost:', portfolio_cost(filename))
 
-      for line in lines:
-         line_num +=1
-         #skip header
-         if line_num ==1:
-            continue
-
-         stock_name, shares_num, stock_price = line
-         try:
-            all_shares_price +=int(shares_num) * float(stock_price)
-         except ValueError:
-            
-            print('Missing field encountered, skipping the corresponding line')
-
-   return all_shares_price
-   return 
-
-if len(sys.argv) ==2:
-   filename = sys.argv[1]
-else:
-   filename = 'Data/portfolio.csv'
-Cost = portfolio_cost(filename)
-print("total cost:" , Cost)
-
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
